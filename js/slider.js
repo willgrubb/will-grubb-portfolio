@@ -1,32 +1,32 @@
 function initSlider(config) {
-  var opener = document.getElementById(config.openerId);
-  var modal = document.getElementById(config.modalId);
+  const opener = document.getElementById(config.openerId);
+  const modal = document.getElementById(config.modalId);
   if (!opener || !modal) return;
 
-  var vertical = config.orientation === "vertical";
-  var track = modal.querySelector(".slider-track");
-  var prevBtn = modal.querySelector(".slider-prev");
-  var nextBtn = modal.querySelector(".slider-next");
-  var closeBtn = modal.querySelector(".slider-close");
-  var counter = modal.querySelector(".slider-counter");
+  const vertical = config.orientation === "vertical";
+  const track = modal.querySelector(".slider-track");
+  const prevBtn = modal.querySelector(".slider-prev");
+  const nextBtn = modal.querySelector(".slider-next");
+  const closeBtn = modal.querySelector(".slider-close");
+  const counter = modal.querySelector(".slider-counter");
 
-  var pageCount = config.pageCount;
-  var current = 0;
+  const pageCount = config.pageCount;
+  let current = 0;
 
-  function pagePath(n) {
-    var s = n < 10 ? "0" + n : "" + n;
-    return config.imageDir + "/page-" + s + ".jpg";
-  }
+  const pagePath = (n) => {
+    const s = n < 10 ? `0${n}` : `${n}`;
+    return `${config.imageDir}/page-${s}.jpg`;
+  };
 
   // Build slides once.
   if (!track.dataset.built) {
-    for (var i = 1; i <= pageCount; i++) {
-      var slide = document.createElement("div");
+    for (let i = 1; i <= pageCount; i++) {
+      const slide = document.createElement("div");
       slide.className = "slider-slide";
-      var img = document.createElement("img");
+      const img = document.createElement("img");
       img.src = pagePath(i);
       img.loading = "lazy";
-      img.alt = "Page " + i + " of " + config.altLabel;
+      img.alt = `Page ${i} of ${config.altLabel}`;
       slide.appendChild(img);
       track.appendChild(slide);
     }
@@ -34,26 +34,24 @@ function initSlider(config) {
   }
 
   function updateUI() {
-    counter.textContent = (current + 1) + " / " + pageCount;
+    counter.textContent = `${current + 1} / ${pageCount}`;
     prevBtn.disabled = current <= 0;
     nextBtn.disabled = current >= pageCount - 1;
   }
 
   function goTo(i) {
     current = Math.max(0, Math.min(pageCount - 1, i));
-    var slide = track.children[current];
-    if (slide) {
-      slide.scrollIntoView({
-        behavior: "smooth",
-        inline: vertical ? "nearest" : "start",
-        block: vertical ? "start" : "nearest"
-      });
-    }
+    const slide = track.children[current];
+    slide?.scrollIntoView({
+      behavior: "smooth",
+      inline: vertical ? "nearest" : "start",
+      block: vertical ? "start" : "nearest"
+    });
     updateUI();
   }
 
-  function next() { goTo(current + 1); }
-  function prev() { goTo(current - 1); }
+  const next = () => goTo(current + 1);
+  const prev = () => goTo(current - 1);
 
   function open() {
     modal.classList.add("open");
@@ -83,42 +81,38 @@ function initSlider(config) {
     }
   }
 
-  opener.addEventListener("click", function (e) {
+  opener.addEventListener("click", (e) => {
     e.preventDefault();
     open();
   });
   closeBtn.addEventListener("click", close);
-  prevBtn.addEventListener("click", function (e) {
+  prevBtn.addEventListener("click", (e) => {
     e.stopPropagation();
     prev();
   });
-  nextBtn.addEventListener("click", function (e) {
+  nextBtn.addEventListener("click", (e) => {
     e.stopPropagation();
     next();
   });
 
-  modal.addEventListener("click", function (e) {
+  modal.addEventListener("click", (e) => {
     if (e.target === modal) close();
   });
 
   // Keep the counter in sync when the user scrolls/swipes manually.
-  var scrollTimer = null;
-  track.addEventListener("scroll", function () {
-    if (scrollTimer) clearTimeout(scrollTimer);
-    scrollTimer = setTimeout(function () {
-      if (vertical) {
-        var slideHeight = track.clientHeight;
-        current = Math.round(track.scrollTop / slideHeight);
-      } else {
-        var slideWidth = track.clientWidth;
-        current = Math.round(track.scrollLeft / slideWidth);
-      }
+  let scrollTimer = null;
+  track.addEventListener("scroll", () => {
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(() => {
+      current = vertical
+        ? Math.round(track.scrollTop / track.clientHeight)
+        : Math.round(track.scrollLeft / track.clientWidth);
       updateUI();
     }, 100);
   });
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
   initSlider({
     openerId: "openDesignProcess",
     modalId: "sliderModalDesignProcess",

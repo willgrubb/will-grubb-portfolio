@@ -1,20 +1,20 @@
 function initBooklet(config) {
-  var opener = document.getElementById(config.openerId);
-  var modal = document.getElementById(config.modalId);
+  const opener = document.getElementById(config.openerId);
+  const modal = document.getElementById(config.modalId);
   if (!opener || !modal) return;
 
-  var PAGE_COUNT = config.pageCount;
-  var IMAGE_DIR = config.imageDir;
-  var ALT_LABEL = config.altLabel;
+  const PAGE_COUNT = config.pageCount;
+  const IMAGE_DIR = config.imageDir;
+  const ALT_LABEL = config.altLabel;
 
-  function pagePath(n) {
-    var s = n < 10 ? "0" + n : "" + n;
-    return IMAGE_DIR + "/page-" + s + ".jpg";
-  }
+  const pagePath = (n) => {
+    const s = n < 10 ? `0${n}` : `${n}`;
+    return `${IMAGE_DIR}/page-${s}.jpg`;
+  };
 
   // Build book leaves: cover alone, then spreads (2,3) (4,5) ..., then a solo back cover if one page is left over.
-  var leaves = [[1]];
-  var p = 2;
+  const leaves = [[1]];
+  let p = 2;
   while (p <= PAGE_COUNT) {
     if (p === PAGE_COUNT) {
       leaves.push([p]);
@@ -27,41 +27,41 @@ function initBooklet(config) {
 
   function slotsFor(leafIdx) {
     if (leafIdx < 0 || leafIdx >= leaves.length) return { left: null, right: null };
-    var pages = leaves[leafIdx];
+    const pages = leaves[leafIdx];
     if (pages.length === 2) return { left: pages[0], right: pages[1] };
     if (leafIdx === 0) return { left: null, right: pages[0] };
     return { left: pages[0], right: null };
   }
 
   function labelFor(leafIdx) {
-    var pages = leaves[leafIdx];
+    const pages = leaves[leafIdx];
     if (leafIdx === 0) return "Cover";
     if (leafIdx === leaves.length - 1 && pages.length === 1) return "Back Cover";
-    return pages.length === 2 ? "Pages " + pages[0] + "–" + pages[1] : "Page " + pages[0];
+    return pages.length === 2 ? `Pages ${pages[0]}–${pages[1]}` : `Page ${pages[0]}`;
   }
 
-  var stage = modal.querySelector(".booklet-stage");
-  var leftUnder = modal.querySelector(".leaf-under-left");
-  var rightUnder = modal.querySelector(".leaf-under-right");
-  var leftUnderImg = leftUnder.querySelector("img");
-  var rightUnderImg = rightUnder.querySelector("img");
-  var leftLeaf = modal.querySelector(".flip-leaf-left");
-  var rightLeaf = modal.querySelector(".flip-leaf-right");
-  var leftFrontImg = leftLeaf.querySelector(".flip-front img");
-  var leftBackImg = leftLeaf.querySelector(".flip-back img");
-  var rightFrontImg = rightLeaf.querySelector(".flip-front img");
-  var rightBackImg = rightLeaf.querySelector(".flip-back img");
-  var counter = modal.querySelector(".booklet-counter");
-  var prevBtn = modal.querySelector(".booklet-prev");
-  var nextBtn = modal.querySelector(".booklet-next");
-  var closeBtn = modal.querySelector(".booklet-close");
+  const stage = modal.querySelector(".booklet-stage");
+  const leftUnder = modal.querySelector(".leaf-under-left");
+  const rightUnder = modal.querySelector(".leaf-under-right");
+  const leftUnderImg = leftUnder.querySelector("img");
+  const rightUnderImg = rightUnder.querySelector("img");
+  const leftLeaf = modal.querySelector(".flip-leaf-left");
+  const rightLeaf = modal.querySelector(".flip-leaf-right");
+  const leftFrontImg = leftLeaf.querySelector(".flip-front img");
+  const leftBackImg = leftLeaf.querySelector(".flip-back img");
+  const rightFrontImg = rightLeaf.querySelector(".flip-front img");
+  const rightBackImg = rightLeaf.querySelector(".flip-back img");
+  const counter = modal.querySelector(".booklet-counter");
+  const prevBtn = modal.querySelector(".booklet-prev");
+  const nextBtn = modal.querySelector(".booklet-next");
+  const closeBtn = modal.querySelector(".booklet-close");
 
-  var idx = 0;
-  var animating = false;
+  let idx = 0;
+  let animating = false;
 
   function setImg(imgEl, pageNum) {
     imgEl.src = pageNum ? pagePath(pageNum) : "";
-    imgEl.alt = pageNum ? "Page " + pageNum + " of " + ALT_LABEL : "";
+    imgEl.alt = pageNum ? `Page ${pageNum} of ${ALT_LABEL}` : "";
   }
 
   function setVisible(el, show) {
@@ -69,9 +69,9 @@ function initBooklet(config) {
   }
 
   function refresh() {
-    var cur = slotsFor(idx);
-    var nextS = slotsFor(idx + 1);
-    var prevS = slotsFor(idx - 1);
+    const cur = slotsFor(idx);
+    const nextS = slotsFor(idx + 1);
+    const prevS = slotsFor(idx - 1);
 
     setImg(rightFrontImg, cur.right);
     setImg(rightBackImg, nextS.left);
@@ -121,12 +121,12 @@ function initBooklet(config) {
 
   function next() {
     if (animating) return;
-    var cur = slotsFor(idx);
+    const cur = slotsFor(idx);
     if (cur.right == null || idx + 1 >= leaves.length) return;
     animating = true;
     rightLeaf.classList.add("flipping");
     rightLeaf.style.transition = "";
-    requestAnimationFrame(function () {
+    requestAnimationFrame(() => {
       rightLeaf.style.transform = "rotateY(-180deg)";
     });
     rightLeaf.addEventListener("transitionend", function handler(e) {
@@ -145,12 +145,12 @@ function initBooklet(config) {
 
   function prev() {
     if (animating) return;
-    var cur = slotsFor(idx);
+    const cur = slotsFor(idx);
     if (cur.left == null || idx - 1 < 0) return;
     animating = true;
     leftLeaf.classList.add("flipping");
     leftLeaf.style.transition = "";
-    requestAnimationFrame(function () {
+    requestAnimationFrame(() => {
       leftLeaf.style.transform = "rotateY(180deg)";
     });
     leftLeaf.addEventListener("transitionend", function handler(e) {
@@ -167,27 +167,27 @@ function initBooklet(config) {
     });
   }
 
-  opener.addEventListener("click", function (e) {
+  opener.addEventListener("click", (e) => {
     e.preventDefault();
     open();
   });
   closeBtn.addEventListener("click", close);
-  prevBtn.addEventListener("click", function (e) {
+  prevBtn.addEventListener("click", (e) => {
     e.stopPropagation();
     prev();
   });
-  nextBtn.addEventListener("click", function (e) {
+  nextBtn.addEventListener("click", (e) => {
     e.stopPropagation();
     next();
   });
 
-  modal.addEventListener("click", function (e) {
+  modal.addEventListener("click", (e) => {
     if (e.target === modal) close();
   });
 
-  stage.addEventListener("click", function (e) {
-    var rect = stage.getBoundingClientRect();
-    var clickX = e.clientX - rect.left;
+  stage.addEventListener("click", (e) => {
+    const rect = stage.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
     if (clickX > rect.width / 2) {
       next();
     } else {
@@ -196,7 +196,7 @@ function initBooklet(config) {
   });
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
   initBooklet({
     openerId: "openBooklet",
     modalId: "bookletModal",
