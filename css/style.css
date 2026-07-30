@@ -477,6 +477,9 @@ section { padding: 80px 0; }
   position: relative;
   height: min(72vh, 760px);
   width: auto;
+  /* Fallback until JS measures the first loaded page and sets the real
+     spread ratio inline — avoids a 0-size flash, kept close to a typical
+     A4-ish spread so the box doesn't jump much once corrected. */
   aspect-ratio: 1846 / 1310;
   perspective: 2200px;
 }
@@ -509,12 +512,26 @@ section { padding: 80px 0; }
   pointer-events: none;
 }
 
+.flip-face img,
+.leaf-under img {
+  opacity: 0;
+  transition: opacity 0.18s ease;
+}
+
+.flip-face img.is-ready,
+.leaf-under img.is-ready {
+  opacity: 1;
+}
+
 .flip-leaf {
   z-index: 2;
   transform-style: preserve-3d;
+  will-change: transform;
   transition: transform 0.55s cubic-bezier(0.3, 0, 0.2, 1);
   cursor: pointer;
 }
+
+.flip-leaf.no-transition { transition: none; }
 
 .flip-leaf-left { transform-origin: right center; }
 .flip-leaf-right { transform-origin: left center; }
@@ -634,6 +651,11 @@ section { padding: 80px 0; }
   .booklet-prev { left: 6px; }
   .booklet-next { right: 6px; }
   .booklet-nav { width: 42px; height: 42px; font-size: 1.3rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flip-leaf { transition-duration: 0.01s; }
+  .flip-face img, .leaf-under img { transition: none; }
 }
 
 /* ===== Horizontal sliding PDF viewer ===== */
