@@ -329,7 +329,8 @@ section { padding: 80px 0; }
   scroll-snap-align: start;
 }
 
-.gallery-track .gallery-slide img {
+.gallery-track .gallery-slide img,
+.gallery-track .gallery-slide video {
   flex: none;
   width: 110%;
   height: 110%;
