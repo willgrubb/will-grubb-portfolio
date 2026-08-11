@@ -307,7 +307,8 @@ section { padding: 80px 0; }
   -webkit-overflow-scrolling: touch;
 }
 
-.gallery-track img {
+.gallery-track img,
+.gallery-track video {
   position: static;
   flex: 0 0 100%;
   width: 100%;
