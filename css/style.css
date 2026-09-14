@@ -406,7 +406,11 @@ section { padding: 80px 0; }
   background: var(--paper);
 }
 
-.gallery-track-clone { display: contents; }
+.gallery-track-clone {
+  display: flex;
+  flex: none;
+  height: 100%;
+}
 
 .gallery-track .gallery-slide img,
 .gallery-track .gallery-slide video {
