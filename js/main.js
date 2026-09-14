@@ -32,4 +32,27 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener("resize", requestTick);
     updateParallax();
   }
+
+  // Infinite horizontal galleries: each track's content is followed by an
+  // identical, aria-hidden clone. Once the user scrolls past the end of the
+  // real set and into the clone, silently rewind by exactly one set's width
+  // so the loop back to the start is invisible.
+  document.querySelectorAll(".gallery-track").forEach((track) => {
+    const clone = track.querySelector(".gallery-track-clone");
+    if (!clone) return;
+
+    track.addEventListener(
+      "scroll",
+      () => {
+        const trackRect = track.getBoundingClientRect();
+        const cloneRect = clone.getBoundingClientRect();
+        const setWidth = cloneRect.left - trackRect.left + track.scrollLeft;
+
+        if (setWidth > 0 && track.scrollLeft >= setWidth) {
+          track.scrollLeft -= setWidth;
+        }
+      },
+      { passive: true }
+    );
+  });
 });
