@@ -243,6 +243,38 @@ section { padding: 80px 0; }
 
 /* ===== Challenge / Solution / Outcome triptych ===== */
 
+.about-details {
+  margin: 0 0 32px;
+}
+
+.about-toggle {
+  cursor: pointer;
+  list-style: none;
+  width: fit-content;
+  user-select: none;
+}
+
+.about-toggle::-webkit-details-marker { display: none; }
+.about-toggle::marker { content: ""; }
+
+.about-toggle::after {
+  content: "+";
+  margin-left: 2px;
+  font-weight: 900;
+}
+
+.about-details[open] .about-toggle {
+  margin-bottom: 20px;
+}
+
+.about-details[open] .about-toggle::after {
+  content: "\2013";
+}
+
+.about-details .challenge-grid {
+  margin: 0;
+}
+
 .challenge-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
