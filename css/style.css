@@ -172,6 +172,86 @@ img { max-width: 100%; display: block; }
   flex-wrap: wrap;
 }
 
+/* ===== Splash (opening page) ===== */
+
+.splash {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 85% 20%, rgba(41,73,54,0.16), transparent 45%),
+    radial-gradient(circle at 10% 80%, rgba(138,60,37,0.14), transparent 40%);
+}
+
+.splash-inner {
+  text-align: center;
+  max-width: 760px;
+  padding: 60px 24px;
+}
+
+.splash-name {
+  font-size: clamp(3rem, 10vw, 6.5rem);
+  line-height: 0.95;
+  margin: 20px 0 14px;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.splash-name span {
+  color: var(--orange);
+  -webkit-text-stroke: 2px var(--ink);
+}
+
+.splash-title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: clamp(1.1rem, 2.4vw, 1.5rem);
+  color: var(--blue);
+  margin: 0 0 20px;
+}
+
+.splash-tagline {
+  font-size: 1.15rem;
+  color: var(--ink-soft);
+  max-width: 540px;
+  margin: 0 auto 36px;
+}
+
+.splash-cta {
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.splash-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.splash-links a {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: 2px solid var(--ink);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+  background: var(--white);
+  transition: all 0.15s ease;
+}
+
+.splash-links a:hover {
+  background: var(--yellow);
+}
+
 .btn {
   display: inline-flex;
   align-items: center;
