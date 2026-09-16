@@ -199,6 +199,16 @@ img { max-width: 100%; display: block; }
   flex: 1 1 480px;
 }
 
+.profile-pic {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--ink);
+  box-shadow: var(--shadow-hard-sm);
+  margin-bottom: 20px;
+}
+
 .splash-name {
   font-size: clamp(4rem, 12vw, 9rem);
   line-height: 0.92;
