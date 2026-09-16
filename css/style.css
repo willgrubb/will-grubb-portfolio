@@ -186,6 +186,7 @@ img { max-width: 100%; display: block; }
 }
 
 .splash-inner {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -208,6 +209,20 @@ img { max-width: 100%; display: block; }
   box-shadow: var(--shadow-hard-sm);
   margin-top: 40px;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.splash-profile-pic {
+  position: absolute;
+  top: 139px;
+  right: 24px;
+  margin-top: 0;
+}
+
+@media (max-width: 1400px) {
+  .splash-profile-pic {
+    position: static;
+    margin: 0 auto 24px;
+  }
 }
 
 .profile-pic:hover {
