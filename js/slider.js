@@ -148,22 +148,4 @@ document.addEventListener("DOMContentLoaded", () => {
     altLabel: "Weedo development pack AW24",
     orientation: "horizontal"
   });
-
-  initSlider({
-    openerId: "openDesignProcessPS",
-    modalId: "sliderModalDesignProcessPS",
-    pageCount: 14,
-    imageDir: "images/slider-paulsmith",
-    altLabel: "Paul Smith design process",
-    orientation: "horizontal"
-  });
-
-  initSlider({
-    openerId: "openMarketResearchPS",
-    modalId: "sliderModalMarketResearchPS",
-    pageCount: 9,
-    imageDir: "images/slider-psmarket",
-    altLabel: "Paul Smith market research report",
-    orientation: "vertical"
-  });
 });
