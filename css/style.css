@@ -186,21 +186,28 @@ img { max-width: 100%; display: block; }
 }
 
 .splash-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 56px;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    "heading heading"
+    "title   pic"
+    "tagline tagline"
+    "cta     cta"
+    "thumbs  thumbs";
+  column-gap: 56px;
+  row-gap: 20px;
+  align-items: start;
   max-width: 1800px;
   padding: 60px 24px;
 }
 
-.splash-text {
-  flex: 1 1 480px;
-}
+.splash-heading { grid-area: heading; }
 
 .profile-pic {
-  width: min(260px, 30vw);
+  grid-area: pic;
+  justify-self: end;
+  align-self: center;
+  width: min(520px, 60vw);
   aspect-ratio: 4 / 3;
   object-fit: cover;
   border: 3px solid var(--ink);
@@ -214,12 +221,22 @@ img { max-width: 100%; display: block; }
   box-shadow: 7px 7px 0 var(--ink);
 }
 
-.splash-right {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
-  flex: 0 1 1600px;
+@media (max-width: 700px) {
+  .splash-inner {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "heading"
+      "title"
+      "pic"
+      "tagline"
+      "cta"
+      "thumbs";
+  }
+
+  .profile-pic {
+    justify-self: center;
+    width: min(260px, 60vw);
+  }
 }
 
 .splash-name {
@@ -237,30 +254,34 @@ img { max-width: 100%; display: block; }
 }
 
 .splash-title {
+  grid-area: title;
   font-family: Georgia, "Times New Roman", serif;
   font-style: italic;
   font-weight: 700;
   font-size: clamp(1.4rem, 3vw, 2rem);
   color: var(--blue);
-  margin: 0 0 24px;
+  margin: 0;
+  align-self: center;
 }
 
 .splash-tagline {
+  grid-area: tagline;
   font-size: clamp(1.15rem, 2vw, 1.4rem);
   color: var(--ink-soft);
   max-width: 560px;
-  margin: 0 0 40px;
+  margin: 0;
 }
 
 .splash-cta {
+  grid-area: cta;
   margin-bottom: 0;
 }
 
 .splash-thumbs {
+  grid-area: thumbs;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 20px;
-  flex: none;
   width: min(1600px, 100%);
   margin: 0 auto;
 }
