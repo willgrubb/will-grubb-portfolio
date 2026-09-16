@@ -181,7 +181,12 @@ function setupMarquee(groupId, text1Id, text2Id, pxPerSec, reverse){
   const g = document.getElementById(groupId);
   const t1 = document.getElementById(text1Id);
   const t2 = document.getElementById(text2Id);
-  const w = t1.getComputedTextLength();
+  // getBBox() measures the actual painted geometry (includes letter-spacing
+  // reliably across browsers, unlike getComputedTextLength() which some
+  // engines under-report when letter-spacing is set) so the two copies
+  // tile back-to-back with no gap and no overlap, ever.
+  const box = t1.getBBox();
+  const w = box.x + box.width;
   t2.setAttribute("x", reverse ? -w : w);
   const dur = w / pxPerSec;
   const style = document.createElement("style");
