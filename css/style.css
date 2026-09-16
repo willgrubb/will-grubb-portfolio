@@ -233,17 +233,24 @@ img { max-width: 100%; display: block; }
 }
 
 .splash-thumbs {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  flex: 0 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  flex: 0 1 524px;
+  width: min(524px, 100%);
   margin: 0 auto;
 }
+
+.splash-thumb:nth-child(1) { grid-column: 1 / span 2; }
+.splash-thumb:nth-child(2) { grid-column: 3 / span 2; }
+.splash-thumb:nth-child(3) { grid-column: 1 / span 2; }
+.splash-thumb:nth-child(4) { grid-column: 3 / span 2; }
+.splash-thumb:nth-child(5) { grid-column: 2 / span 2; }
 
 .splash-thumb {
   position: relative;
   display: block;
-  width: clamp(120px, 15vw, 170px);
+  width: 100%;
   aspect-ratio: 4 / 3;
   border: 3px solid var(--ink);
   border-radius: var(--radius);
