@@ -503,16 +503,6 @@ section { padding: 80px 0; }
   will-change: transform;
 }
 
-.parallax-frame .football-hero-img {
-  object-position: center 32%;
-}
-
-@media (max-width: 640px) {
-  .parallax-frame .football-hero-img {
-    object-position: center 8%;
-  }
-}
-
 .parallax-frame-wide {
   max-width: none;
   width: 100%;
