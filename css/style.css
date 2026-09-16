@@ -555,6 +555,16 @@ section { padding: 80px 0; }
   object-position: center;
 }
 
+.gallery-track iframe {
+  position: static;
+  flex: none;
+  width: auto;
+  max-width: none;
+  height: 100%;
+  aspect-ratio: 1680 / 1140;
+  border: none;
+}
+
 .gallery-slide {
   flex: none;
   width: auto;
