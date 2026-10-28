@@ -148,4 +148,13 @@ document.addEventListener("DOMContentLoaded", () => {
     altLabel: "Weedo development pack AW24",
     orientation: "horizontal"
   });
+
+  initSlider({
+    openerId: "openDistrictProcess",
+    modalId: "sliderModalDistrictProcess",
+    pageCount: 6,
+    imageDir: "images/slider-districtcreative",
+    altLabel: "District Creative design process",
+    orientation: "horizontal"
+  });
 });
